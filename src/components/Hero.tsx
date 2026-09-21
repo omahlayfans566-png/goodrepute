@@ -88,7 +88,7 @@ export default function Hero() {
 
         {/* Main headline */}
         <h1
-          className="heading-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-ivory max-w-5xl mx-auto transition-all duration-1000"
+          className="heading-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-ivory max-w-5xl mx-auto transition-all duration-1000"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(24px)',

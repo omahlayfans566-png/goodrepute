@@ -80,7 +80,7 @@ export default function EventTypes() {
         </div>
 
         {/* Disclaimer note */}
-        <p className="text-center label-caps text-[9px] text-ivory/25 mt-12 reveal" style={{ transitionDelay: '500ms' }}>
+        <p className="text-center label-caps text-[9px] text-ivory/45 mt-12 reveal" style={{ transitionDelay: '500ms' }}>
           These categories represent the types of events this website is structured to support. They are editable and should be confirmed with Good Repute Events.
         </p>
       </div>

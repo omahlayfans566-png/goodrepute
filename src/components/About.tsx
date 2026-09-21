@@ -37,7 +37,7 @@ export default function About() {
             </div>
 
             {/* Floating accent card */}
-            <div className="absolute -bottom-8 -right-4 md:-right-8 bg-warm-mid border border-gold/20 p-6 w-48 md:w-56">
+            <div className="absolute -bottom-6 right-0 sm:-bottom-8 sm:-right-4 md:-right-8 bg-warm-mid border border-gold/20 p-4 sm:p-6 w-44 sm:w-48 md:w-56">
               <p className="font-display text-3xl md:text-4xl text-gold font-light">Lagos</p>
               <p className="label-caps text-[10px] text-ivory/50 mt-1 tracking-widest">Nigeria</p>
               <div className="w-8 h-px bg-gold/40 mt-3" />

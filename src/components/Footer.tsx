@@ -114,13 +114,13 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-ivory/5">
         <div className="container-site py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-sans text-xs text-ivory/30">
+          <p className="font-sans text-xs text-ivory/45">
             © {year} Good Repute Events. {BUSINESS.location}.
           </p>
-          <p className="font-sans text-xs text-ivory/20 text-center">
+          <p className="font-sans text-xs text-ivory/45 text-center">
             ⓘ This is a speculative website concept created by a freelance developer. Not commissioned or approved by Good Repute Events.
           </p>
-          <p className="font-sans text-xs text-ivory/30">
+          <p className="font-sans text-xs text-ivory/45">
             Phone: {BUSINESS.contact.phone}
           </p>
         </div>

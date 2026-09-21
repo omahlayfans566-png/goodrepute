@@ -74,7 +74,7 @@ export default function Testimonials() {
                     </cite>
                     <span className="label-gold text-[11px]">{item.event}</span>
                     {item.isPlaceholder && (
-                      <span className="label-caps text-[9px] text-ivory/25 mt-2 border border-ivory/10 px-2 py-1">
+                      <span className="label-caps text-[9px] text-ivory/45 mt-2 border border-ivory/15 px-2 py-1">
                         PLACEHOLDER — REPLACE WITH REAL REVIEW
                       </span>
                     )}

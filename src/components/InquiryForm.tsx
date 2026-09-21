@@ -29,6 +29,7 @@ const GUEST_COUNTS = ['Under 50', '50 – 100', '100 – 200', '200 – 500', '5
 
 export default function InquiryForm() {
   const [form, setForm] = useState<FormData>(INITIAL)
+  const [errors, setErrors] = useState<Record<string, string>>({})
   const [state, setState] = useState<FormState>('idle')
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -43,18 +44,50 @@ export default function InquiryForm() {
     return () => observer.disconnect()
   }, [])
 
-  const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
+  const set = (field: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm(f => ({ ...f, [field]: e.target.value }))
+    if (errors[field]) {
+      setErrors(prev => {
+        const next = { ...prev }
+        delete next[field]
+        return next
+      })
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Client-side validation
+    const newErrors: Record<string, string> = {}
+    if (!form.fullName.trim()) {
+      newErrors.fullName = 'Please enter your full name.'
+    }
+    if (!form.phone.trim()) {
+      newErrors.phone = 'Please enter your phone number.'
+    }
+    if (!form.email.trim()) {
+      newErrors.email = 'Please enter your email address.'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      newErrors.email = 'Please enter a valid email address.'
+    }
+    if (!form.eventType) {
+      newErrors.eventType = 'Please select an event type.'
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
+    setErrors({})
     setState('submitting')
     // DEMO: simulate a 1.5s network delay then show success
     // In production, connect this to an email service, WhatsApp API or backend endpoint
     setTimeout(() => setState('success'), 1500)
   }
 
-  const reset = () => { setForm(INITIAL); setState('idle') }
+  const reset = () => { setForm(INITIAL); setErrors({}); setState('idle') }
 
   const inputClass = "w-full bg-warm-dark border border-ivory/10 text-ivory font-sans text-sm px-4 py-3.5 focus:outline-none focus:border-gold/50 transition-colors duration-300 placeholder:text-ivory/25"
   const selectClass = `${inputClass} appearance-none cursor-pointer`
@@ -126,21 +159,54 @@ export default function InquiryForm() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="fullName" className={labelClass}>Full Name *</label>
-                      <input id="fullName" type="text" required value={form.fullName} onChange={set('fullName')}
-                        placeholder="Your full name" className={inputClass} autoComplete="name" />
+                      <input
+                        id="fullName"
+                        type="text"
+                        required
+                        value={form.fullName}
+                        onChange={set('fullName')}
+                        placeholder="Your full name"
+                        className={`${inputClass} ${errors.fullName ? 'border-red-400/70 focus:border-red-400' : ''}`}
+                        autoComplete="name"
+                      />
+                      {errors.fullName && (
+                        <p className="mt-1.5 text-xs text-red-400/90 font-sans">{errors.fullName}</p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="phone" className={labelClass}>Phone Number *</label>
-                      <input id="phone" type="tel" required value={form.phone} onChange={set('phone')}
-                        placeholder="+234 000 000 0000" className={inputClass} autoComplete="tel" />
+                      <input
+                        id="phone"
+                        type="tel"
+                        required
+                        value={form.phone}
+                        onChange={set('phone')}
+                        placeholder="+234 000 000 0000"
+                        className={`${inputClass} ${errors.phone ? 'border-red-400/70 focus:border-red-400' : ''}`}
+                        autoComplete="tel"
+                      />
+                      {errors.phone && (
+                        <p className="mt-1.5 text-xs text-red-400/90 font-sans">{errors.phone}</p>
+                      )}
                     </div>
                   </div>
 
                   {/* Email */}
                   <div>
                     <label htmlFor="email" className={labelClass}>Email Address *</label>
-                    <input id="email" type="email" required value={form.email} onChange={set('email')}
-                      placeholder="your@email.com" className={inputClass} autoComplete="email" />
+                    <input
+                      id="email"
+                      type="email"
+                      required
+                      value={form.email}
+                      onChange={set('email')}
+                      placeholder="your@email.com"
+                      className={`${inputClass} ${errors.email ? 'border-red-400/70 focus:border-red-400' : ''}`}
+                      autoComplete="email"
+                    />
+                    {errors.email && (
+                      <p className="mt-1.5 text-xs text-red-400/90 font-sans">{errors.email}</p>
+                    )}
                   </div>
 
                   {/* Row 2 */}
@@ -148,12 +214,21 @@ export default function InquiryForm() {
                     <div>
                       <label htmlFor="eventType" className={labelClass}>Event Type *</label>
                       <div className="relative">
-                        <select id="eventType" required value={form.eventType} onChange={set('eventType')} className={selectClass}>
+                        <select
+                          id="eventType"
+                          required
+                          value={form.eventType}
+                          onChange={set('eventType')}
+                          className={`${selectClass} ${errors.eventType ? 'border-red-400/70 focus:border-red-400' : ''}`}
+                        >
                           <option value="" disabled>Select event type</option>
                           {EVENT_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                         </select>
                         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ivory/40">▾</div>
                       </div>
+                      {errors.eventType && (
+                        <p className="mt-1.5 text-xs text-red-400/90 font-sans">{errors.eventType}</p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="eventDate" className={labelClass}>Preferred Event Date</label>
