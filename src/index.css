@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base resets ─────────────────────────────────────────────────────────── */
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply bg-warm-dark text-ivory font-sans antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Remove default list styles */
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  /* Image defaults */
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-gold;
+  }
+}
+
+/* ── Typography utilities ────────────────────────────────────────────────── */
+@layer components {
+  .heading-display {
+    @apply font-display font-light tracking-tight leading-tight;
+  }
+
+  .heading-serif {
+    @apply font-serif font-medium tracking-tight leading-tight;
+  }
+
+  .label-caps {
+    @apply font-sans text-xs font-medium tracking-widest uppercase;
+  }
+
+  .label-gold {
+    @apply label-caps text-gold;
+  }
+
+  .body-elegant {
+    @apply font-sans font-light leading-relaxed text-ivory/70;
+  }
+
+  /* ── Buttons ─────────────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-8 py-4 bg-gold text-warm-dark font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 hover:bg-gold-light hover:scale-[1.02] focus-visible:outline-gold;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-8 py-4 border border-ivory/30 text-ivory font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 hover:border-gold hover:text-gold focus-visible:outline-gold;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-gold font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 hover:text-gold-light;
+  }
+
+  /* ── Section layout ──────────────────────────────────────────────────── */
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .container-site {
+    @apply max-w-7xl mx-auto px-6 md:px-10 xl:px-16;
+  }
+
+  /* ── Dividers ─────────────────────────────────────────────────────────── */
+  .divider-gold {
+    @apply w-16 h-px bg-gold mx-auto;
+  }
+
+  .divider-gold-left {
+    @apply w-16 h-px bg-gold;
+  }
+
+  /* ── Cards ─────────────────────────────────────────────────────────────── */
+  .card-service {
+    @apply relative p-8 border border-ivory/10 transition-all duration-500 hover:border-gold/40 bg-warm-dark/40 backdrop-blur-sm cursor-default;
+  }
+
+  /* ── Overlay ─────────────────────────────────────────────────────────── */
+  .image-overlay {
+    @apply absolute inset-0 bg-gradient-to-b from-transparent via-warm-dark/20 to-warm-dark/80;
+  }
+
+  /* ── WhatsApp button ─────────────────────────────────────────────────── */
+  .btn-whatsapp {
+    @apply inline-flex items-center gap-3 px-8 py-4 bg-[#25D366] text-white font-sans font-medium text-sm tracking-widest uppercase transition-all duration-300 hover:bg-[#20bd5a] hover:scale-[1.02];
+  }
+
+  /* ── Scroll reveal (JS controlled) ──────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1a18;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9a96e40;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c9a96e80;
+}
+
+/* ── Selection ───────────────────────────────────────────────────────────── */
+::selection {
+  background: #c9a96e30;
+  color: #f8f4ee;
+}
+
+/* ── Lightbox backdrop ───────────────────────────────────────────────────── */
+.lightbox-backdrop {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
